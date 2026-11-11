@@ -1,0 +1,26 @@
+
+# Environment files and secrets
+.env
+.env.*
+!.env.example
+
+# User uploaded files and personal information
+uploads/
+alumni/uploads/
+
+# Database backups
+*.sql
+*.bak
+*.dump
+
+# Dependencies
+vendor/
+
+# Local editor settings
+.vscode/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+!database/schema.sql

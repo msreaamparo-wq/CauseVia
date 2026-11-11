@@ -1,0 +1,166 @@
+/* Main CSS - Reduced for Tailwind Compatibility */
+
+/* 1. Color Palette */
+:root {
+    --primary: #6C131F;       /* Deep Burgundy */
+    --primary-light: #8a1a29;
+    --primary-dark: #4c0e16;
+    --secondary: #A14B58;     /* Muted Rose */
+    --secondary-light: #b96d7a;
+    --accent: #A14B58;       
+    --background: #FFECEA;    /* Cream/Parchment */
+    --surface: rgba(255, 255, 255, 0.95);
+    --text-primary: #1a202c;
+    --text-secondary: #4a5568;
+    --border: #cbd5e1;        /* Made darker for better visibility */
+    --success: #38a169;
+    --warning: #d69e2e;
+    --error: #e53e3e;
+}
+
+/* 2. Basic Reset & Global Styles */
+body {
+    background-color: var(--background);
+    color: var(--text-primary);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: rgba(108, 19, 31, 0.05);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--secondary);
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary);
+}
+
+/* 3. Components */
+.card {
+    background: var(--surface);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(108, 19, 31, 0.05), 0 2px 4px -1px rgba(108, 19, 31, 0.03);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.625rem 1.5rem;
+    border-radius: 9999px; /* Changed to Pill Shape to match theme */
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-light);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(108, 19, 31, 0.2);
+}
+
+.btn-outline {
+    background-color: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+}
+
+.btn-outline:hover {
+    background-color: white;
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+/* 4. Inputs & Filters - FIXED FOR PILL SHAPE */
+/* This section forces the inputs to look like your reference image */
+
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="password"],
+input[type="file"],
+select,
+textarea {
+    width: 100%;
+    /* PILL SHAPE MAGIC HERE: */
+    border-radius: 50px;       /* Makes it fully rounded */
+    padding: 0.6rem 1.25rem;   /* More padding on sides for pill shape */
+    
+    /* VISIBLE BORDER: */
+    border: 1px solid #cbd5e1; /* Darker grey so you can see the box */
+    background-color: white;
+    transition: all 0.2s;
+    appearance: none;          /* Removes default browser styling */
+    -webkit-appearance: none;
+}
+
+/* Fix for Select Dropdown Arrow */
+/* Since we removed appearance, we need to ensure the arrow is managed or use a background image. 
+   For now, we keep simple styling but ensure it looks like a box. */
+select {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 1rem center;
+    background-repeat: no-repeat;
+    background-size: 1.5em 1.5em;
+    padding-right: 2.5rem;
+}
+
+/* Focus State */
+input:focus, 
+select:focus, 
+textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(108, 19, 31, 0.1); /* Burgundy Glow */
+}
+
+/* 5. Table Enhancements */
+thead tr {
+    background-color: rgba(108, 19, 31, 0.02);
+    border-bottom: 1px solid var(--border);
+}
+
+th {
+    color: var(--text-secondary);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+}
+
+/* 6. Animations & Modals */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+    animation: fadeIn 0.3s ease-out;
+}
+
+#detailsModal, #uploadModal {
+    transition: opacity 0.3s ease-in-out;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Badge helpers */
+.badge-completed { background-color: #DEF7EC; color: #03543F; }
+.badge-pending { background-color: #FEF3C7; color: #92400E; }
