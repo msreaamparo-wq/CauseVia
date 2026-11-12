@@ -3,12 +3,14 @@ FROM php:8.2-apache
 RUN apt-get update \
     && apt-get install -y --no-install-recommends libpq-dev \
     && docker-php-ext-install pdo_pgsql pgsql \
-    && (a2dismod mpm_event || true) \
-    && (a2dismod mpm_worker || true) \
+    && rm -f /etc/apache2/mods-enabled/mpm_*.load \
+              /etc/apache2/mods-enabled/mpm_*.conf \
     && a2enmod mpm_prefork rewrite \
+    && test "$(apache2ctl -M 2>/dev/null | grep -c 'mpm_')" -eq 1 \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /var/www/html
+
 COPY . /var/www/html
 
 RUN printf 'DirectoryIndex landingpage.php index.php index.html\n' \
@@ -19,4 +21,5 @@ RUN printf 'DirectoryIndex landingpage.php index.php index.html\n' \
     && chmod -R 775 /var/www/html/uploads /var/www/html/alumni/uploads
 
 EXPOSE 80
+
 CMD ["apache2-foreground"]
